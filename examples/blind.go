@@ -15,7 +15,7 @@ type Signature struct {
 // Based on the Elliptic Curve Discrete Logarithm Problem by
 // Nikooghadam and Zakerolhosseini
 func main() {
-    crv := btcutil.Secp256k1
+    crv := btcutil.Secp256k1().Params()
 
 	// generate keys for Signer
 	signer, _ := btcutil.GenerateKey(rand.Reader)
@@ -58,6 +58,7 @@ func main() {
 
     // message which the requester want's signed
     m, err := btcutil.RandFieldElement(rand.Reader)
+    fmt.Printf("m = %x\n", m)
 
     // calculate r and m̂
     r := new(big.Int).Mod(x0, crv.N)
@@ -75,7 +76,7 @@ func main() {
     s.Add(s, c)
     s.Mod(s, crv.N)
     sig := &Signature{m,s,F}
-    fmt.Printf("sig = %s\n\n", sig)
+    fmt.Printf("sig =\t%x\n\t%x\n", sig.s, sig.F.X)
 
     // onlooker verifies signature (§4.5)
     sG := btcutil.ScalarBaseMult(sig.s)
@@ -84,7 +85,9 @@ func main() {
     rmQ := btcutil.ScalarMult(rm, &Q)
     rmQplusF := btcutil.Add(rmQ, sig.F)
 
-    fmt.Printf("%s\n%s\n", sG, rmQplusF)
+    fmt.Println("")
+    fmt.Printf("sG      = %x\n", sG.X)
+    fmt.Printf("rmQ + F = %x\n", rmQplusF.X)
     if btcutil.KeysEqual(sG, rmQplusF) {
         fmt.Printf("valid signature\n")
     }

@@ -8,8 +8,8 @@ import "math/big"
 // typically how they're used.
 func ScalarBaseMult(k *big.Int) *ecdsa.PublicKey {
 	key := new(ecdsa.PublicKey)
-	key.Curve = Secp256k1
-	key.X, key.Y = Secp256k1.ScalarBaseMult(k.Bytes())
+	key.Curve = Secp256k1()
+	key.X, key.Y = Secp256k1().ScalarBaseMult(k.Bytes())
 	return key
 }
 
@@ -17,8 +17,8 @@ func ScalarBaseMult(k *big.Int) *ecdsa.PublicKey {
 // is represented as an ECDSA public key.
 func ScalarMult(k *big.Int, B *ecdsa.PublicKey) *ecdsa.PublicKey {
 	key := new(ecdsa.PublicKey)
-	key.Curve = Secp256k1
-	key.X, key.Y = Secp256k1.ScalarMult(B.X, B.Y, k.Bytes())
+	key.Curve = Secp256k1()
+	key.X, key.Y = Secp256k1().ScalarMult(B.X, B.Y, k.Bytes())
 	return key
 }
 
@@ -26,7 +26,7 @@ func ScalarMult(k *big.Int, B *ecdsa.PublicKey) *ecdsa.PublicKey {
 // ECDSA public keys.
 func Add(a, b *ecdsa.PublicKey) *ecdsa.PublicKey {
 	key := new(ecdsa.PublicKey)
-	key.Curve = Secp256k1
-	key.X, key.Y = Secp256k1.Add(a.X, a.Y, b.X, b.Y)
+	key.Curve = Secp256k1()
+	key.X, key.Y = Secp256k1().Add(a.X, a.Y, b.X, b.Y)
 	return key
 }
