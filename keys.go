@@ -9,5 +9,5 @@ func GenerateKey(rand io.Reader) (*ecdsa.PrivateKey, error) {
 }
 
 func KeysEqual(a, b *ecdsa.PublicKey) bool {
-    return a.X.Cmp(b.X)==0 && a.Y.Cmp(b.Y)==0
+	return a.X.Cmp(b.X) == 0 && a.Y.Cmp(b.Y) == 0
 }
