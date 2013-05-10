@@ -13,10 +13,10 @@ func main() {
 	fmt.Println("")
 
 	// Alice calculates shared secret
-	aliceShared := btcutil.ECDH(alice, bob.PublicKey)
+	aliceShared := btcutil.ECDH(alice, &bob.PublicKey)
 	fmt.Printf("Alice: %x\n", aliceShared)
 
 	// Bob calculates shared secret
-	bobShared := btcutil.ECDH(bob, alice.PublicKey)
+	bobShared := btcutil.ECDH(bob, &alice.PublicKey)
 	fmt.Printf("Bob:   %x\n", bobShared)
 }
