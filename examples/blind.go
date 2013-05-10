@@ -9,9 +9,9 @@ func main() {
 	requester := new(btcutil.BlindRequesterState)
 
 	// requester: message that needs to be blind signed
-    m, err := btcutil.RandFieldElement(rand.Reader)
+	m, err := btcutil.RandFieldElement(rand.Reader)
 	maybePanic(err)
-    fmt.Printf("m = %x\n", m)
+	fmt.Printf("m = %x\n", m)
 
 	// requester: ask signer to start the protocol
 	Q, R := btcutil.BlindSession(signer)
@@ -29,13 +29,13 @@ func main() {
 	fmt.Printf("sig =\t%x\n\t%x\n", sig.S, sig.F.X)
 
 	// onlooker verifies signature
-    if btcutil.BlindVerify(Q, sig) {
-        fmt.Printf("valid signature\n")
-    }
+	if btcutil.BlindVerify(Q, sig) {
+		fmt.Printf("valid signature\n")
+	}
 }
 
 func maybePanic(err error) {
-    if err != nil {
-        panic(err)
-    }
+	if err != nil {
+		panic(err)
+	}
 }
